@@ -1,0 +1,7 @@
+{
+  "name": "ilacTakas",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "ionic-angular"
+}
