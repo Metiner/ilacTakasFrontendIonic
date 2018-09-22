@@ -1,0 +1,165 @@
+<ion-header>
+  <header></header>
+</ion-header>
+<ion-content>
+  <form #f="ngForm" (submit)="teklifYarat(f)">
+    <ion-grid>
+      <ion-row>
+        <ion-col col-12 col-md-6 class="mx-auto">
+          <ion-item no-padding>
+            <ion-label floating>İlaç adı / Barkod</ion-label>
+            <ion-input (ionChange)="getIlaclar($event)" [ngModel]="secilenIlac" name="ilacAdi"></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col col-12 col-md-6 class="mx-auto">
+          <ion-list style="max-height: 200px;overflow-y: auto">
+            <ion-item class="mouse-pointer hover-color-gray"
+                      style="font-size: 12px"
+                      no-padding
+                      *ngFor="let ilac of ilaclar"
+                      (click)="onSelectIlac(ilac)">
+              {{ ilac }}
+            </ion-item>
+          </ion-list>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col col-12 col-md-6 class="mx-auto">
+          <ion-item no-padding>
+            <ion-label floating>Alım Miktarı</ion-label>
+            <ion-input [(ngModel)]="alimMiktari" name="alimMiktari" required name="alimMiktari" type="number"></ion-input>
+          </ion-item>
+        </ion-col>
+        <ion-col col-12 col-md-6 class="mx-auto">
+          <ion-item no-padding>
+            <ion-label floating>Mal Fazlası</ion-label>
+            <ion-input [(ngModel)]="malFazlasi" required name="malFazlasi" type="number"></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col col-12 col-md-6 class="mx-auto">
+          <ion-item no-padding>
+            <ion-label floating>Minumum Alım</ion-label>
+            <ion-input [(ngModel)]="minimumAlim" required name="minimumAlim" type="number"></ion-input>
+          </ion-item>
+        </ion-col>
+        <ion-col col-12 col-md-6 class="mx-auto">
+          <ion-item no-padding>
+            <ion-label floating>Maximum Alım</ion-label>
+            <ion-input [ngModel] required name="maxAlim" type="number"></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col col-12 col-md-6 class="mx-auto">
+          <ion-item no-padding>
+            <ion-label floating>Etiket Fiyatı</ion-label>
+            <ion-input [ngModel] required name="etiketFiyati" type="number"></ion-input>
+          </ion-item>
+        </ion-col>
+        <ion-col col-12 col-md-6 class="mx-auto">
+          <ion-item no-padding>
+            <ion-label floating>Depo Fiyatı</ion-label>
+            <ion-input [ngModel] required name="depoFiyati" type="number"></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col col-12 col-md-6 class="mx-auto">
+          <ion-item no-padding>
+            <ion-label floating>Yemek Çeki/ Elden Nakit</ion-label>
+            <ion-input [ngModel] required name="yemekCekiEldenNakit" type="number"></ion-input>
+          </ion-item>
+        </ion-col>
+        <ion-col col-12 col-md-6 class="mx-auto">
+          <ion-item no-padding>
+            <ion-label floating>Ekstra Hediye Ürün</ion-label>
+            <ion-input [ngModel] required name="ekstraUrun" type="number"></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col col-12 col-md-6 class="mx-auto">
+          <ion-item no-padding>
+            <ion-label floating>Başlangıç</ion-label>
+            <ion-datetime [ngModel] name="baslangicTarihi" displayFormat="DD/MM/YYYY" cancelText="Vazgeç" doneText="Seç"  max="2030" ></ion-datetime>
+          </ion-item>
+        </ion-col>
+        <ion-col col-12 col-md-6 class="mx-auto">
+          <ion-item no-padding>
+            <ion-label floating>Bitiş</ion-label>
+            <ion-datetime displayFormat="DD/MM/YYYY"  cancelText="Vazgeç" doneText="Seç" ngModel max="2030" name="bitisTarihi"></ion-datetime>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col col-12 col-md-6 class="mx-auto">
+          <ion-item no-padding>
+            <ion-label floating>Son kullanma tarihi</ion-label>
+            <ion-datetime displayFormat="DD/MM/YYYY" cancelText="Vazgeç" doneText="Seç" ngModel max="2030" name="sonKullanmaTarihi"></ion-datetime>
+          </ion-item>
+        </ion-col>
+        <ion-col col-12 col-md-6 class="mx-auto">
+          <ion-item no-padding margin-top>
+            <ion-label style="color:#999999">Hedeflenen Alım Geçilsin</ion-label>
+            <ion-toggle [(ngModel)]="hag" name="hag"></ion-toggle>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col col-12 col-md-6 class="mx-auto">
+          <ion-item no-padding margin-top margin-bottom>
+            <ion-label style="color:#999999">Eczaneye Özel Yayınla</ion-label>
+            <ion-toggle [(ngModel)]="eoy" name="eoy" (ionChange)="getEczaneler()"></ion-toggle>
+          </ion-item>
+        </ion-col>
+        <ion-col col-12 col-md-6 class="mx-auto">
+          <ion-item no-padding>
+            <ion-label floating>Hedeflenen Alim</ion-label>
+            <ion-input [ngModel] required name="hedeflenenAlim" type="number"></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col *ngIf="eoy" col-12 col-md-6 class="mx-auto">
+          <ion-item no-padding margin-bottom>
+            <ion-label floating>Eczane</ion-label>
+            <ion-select [(ngModel)]="secilen_eczane" name="secilen_eczane" cancelText="Vazgeç" doneText="Seç">
+              <ion-option *ngFor="let eczane of eczaneler" [value]="eczane.id">{{eczane.ad}} Eczanesi</ion-option>
+            </ion-select>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col col-12 col-md-6 class="mx-auto">
+          <ion-row>
+            <ion-col no-padding>
+              <button
+                ion-button
+                block
+                color="secondary"
+                type="button"
+                (click)="calculateNetPrice(f)"
+              >Net fiyat</button>
+            </ion-col>
+          </ion-row>
+        </ion-col>
+        <ion-col col-12 col-md-6 class="mx-auto">
+          <ion-row>
+            <ion-col no-padding>
+              <button
+                ion-button
+                block
+                [disabled]="!f.valid"
+                type="submit"
+              >Yayınla</button>
+            </ion-col>
+          </ion-row>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </form>
+</ion-content>

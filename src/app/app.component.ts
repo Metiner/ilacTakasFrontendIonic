@@ -1,27 +1,28 @@
 import {Component, ViewChild} from '@angular/core';
-import {MenuController, NavController, Platform} from 'ionic-angular';
+import {Events, MenuController, NavController, Platform} from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { LoginPage } from "../pages/login/login";
 
 import { TabsPage } from '../pages/tabs/tabs';
 import {IlacTakasLibrary} from "../services/IlacTakasLibrary";
-import { Storage } from '@ionic/storage'
+import {TeklifYaratPage} from "../pages/teklif-yarat/teklif-yarat";
 
 @Component({
   templateUrl: 'app.html'
 })
 export class MyApp {
-  rootPage:any = TabsPage;
 
-  @ViewChild('content') nav: NavController
+  rootPage: any = TabsPage;
+  @ViewChild('nav') nav: NavController
+  isAuth = false
 
   constructor(platform: Platform,
               statusBar: StatusBar,
               splashScreen: SplashScreen,
               private menuCtrl: MenuController,
               private ilacTakasLibrary: IlacTakasLibrary,
-              private storage: Storage) {
+              private eventCtrl: Events) {
     platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
@@ -29,34 +30,37 @@ export class MyApp {
       splashScreen.hide();
 
       this.initializeApp()
+
+
     });
   }
 
-  initializeApp(){
-    if(!this.checkAuth()){
-      this.nav.push(LoginPage)
-    }
+  initializeApp() {
+
+    this.ilacTakasLibrary.checkAuth()
+      .then( response => {
+        if(response){
+          this.isAuth = true
+          //navigates to tabs page.
+        }else{
+          this.nav.push(LoginPage)
+        }
+      })
+
+    this.eventCtrl.subscribe('menuChangeAuth', response => {
+      this.isAuth = response
+    })
   }
 
-  openLoginPage(){
+  openLoginPage() {
     this.nav.push(LoginPage)
     this.menuCtrl.close()
   }
 
-  // Checks storage for auth, returns boolean
-  checkAuth(){
-    this.storage.get('ilacTakasToken')
-      .then( response => {
-        if(response !== null){
-          this.ilacTakasLibrary.user = response
-          return true
-        }
-        else{
-          return false
-        }
-      })
-      .catch( err => {
-        console.log(err)
-      })
+  logOut(){
+    this.ilacTakasLibrary.logout()
+    this.nav.push(LoginPage)
+    this.menuCtrl.close()
   }
+
 }

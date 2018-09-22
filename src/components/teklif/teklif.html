@@ -1,0 +1,34 @@
+  <ion-card>
+    <ion-item>
+      <span style="font-weight: 600; font-size: 15px">{{teklif.barcodeNo}}</span>
+      <p style="color: #d44a07;">{{teklif.createdBy}}</p>
+    </ion-item>
+
+    <img src="http://demavovos.nl/alcoholendrugs/wp-content/uploads/sites/10/2017/12/drugs.png">
+
+    <ion-row>
+      <ion-col text-center>
+        <span
+          style="color: #32db64;font-size: 25px;font-weight: 700"
+        >%{{karlilik}}</span>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <progressbar [progress]="teklifBakiyeYuzdesi"></progressbar>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col text-center>
+        <button
+          class="mx-auto"
+          color="secondary"
+          small
+          ion-button round>Detaylar</button>
+      </ion-col>
+    </ion-row>
+
+
+
+  </ion-card>

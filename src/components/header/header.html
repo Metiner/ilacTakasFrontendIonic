@@ -1,0 +1,20 @@
+<ion-toolbar>
+  <ion-row>
+    <ion-col col-auto margin-right>
+      <button ion-button menuToggle icon-only>
+        <ion-icon name='menu'></ion-icon>
+      </button>
+    </ion-col>
+    <ion-col style="font-size: 15px;">
+      <img src="../../assets/imgs/yilan.png" style="max-width: 20px">
+      İlaç Takas
+    </ion-col>
+  </ion-row>
+  <ion-buttons end>
+    <button ion-button>
+      <p  style="font-size: 15px" *ngIf="eczane.ad.length > 0">
+        Hoşgeldin, {{ eczane.ad }} eczanesi.
+      </p>
+    </button>
+  </ion-buttons>
+</ion-toolbar>

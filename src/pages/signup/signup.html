@@ -1,0 +1,73 @@
+<ion-header>
+  <header></header>
+</ion-header>
+<ion-content>
+  <form #f="ngForm" (submit)="onSingup(f)">
+    <ion-grid>
+      <ion-row>
+        <ion-col col-lg-6 class="mx-auto">
+          <ion-item no-padding>
+            <ion-label floating>GLN</ion-label>
+            <ion-input [ngModel] required name="gln" type="text"></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col col-lg-6 class="mx-auto">
+          <ion-item no-padding>
+            <ion-label floating>Eczane Adı</ion-label>
+            <ion-input [ngModel] required name="username" type="text"></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col col-lg-6 class="mx-auto">
+          <ion-item no-padding>
+            <ion-label floating>E-posta</ion-label>
+            <ion-input [ngModel] email required name="email" type="email"></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col col-lg-6 class="mx-auto">
+          <ion-item no-padding>
+            <ion-label floating>Parola</ion-label>
+            <ion-input [ngModel] minlength="6" required name="password" type="password"></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col col-lg-6 class="mx-auto">
+          <ion-item no-padding>
+            <ion-label floating>Parola tekrar</ion-label>
+            <ion-input [ngModel] minlength="6" required name="passwordTwo" type="password"></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <!--<ion-row>
+        <ion-col col-lg-6 class="mx-auto">
+          <ion-item no-padding>
+            <ion-label floating>Eczane Grubu</ion-label>
+            <ion-select [ngModel] required name="grup" cancelText="Vazgeç" okText="Seç">
+              <ion-option *ngFor="let grup of gruplar" [value]="grup._id">{{ grup.name }}</ion-option>
+            </ion-select>
+          </ion-item>
+        </ion-col>
+      </ion-row>-->
+      <ion-row>
+        <ion-col col-lg-6 class="mx-auto">
+          <ion-row>
+            <ion-col no-padding margin-top>
+              <button
+                ion-button
+                block
+                type="submit"
+                [disabled]="!f.valid"
+              >Üye ol</button>
+            </ion-col>
+          </ion-row>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </form>
+</ion-content>

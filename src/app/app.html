@@ -1,13 +1,17 @@
-<ion-menu [content]="content">
+<ion-menu [content]="nav">
   <ion-header>
   </ion-header>
   <ion-content>
     <ion-list>
-      <button ion-item (click)="openLoginPage()">
+      <button *ngIf="!isAuth" ion-item (click)="openLoginPage()">
         <ion-icon name="log-in"></ion-icon>
         Giriş Yap
+      </button>
+      <button *ngIf="isAuth" ion-item (click)="logOut()">
+        <ion-icon name="log-out"></ion-icon>
+        Çıkış Yap
       </button>
     </ion-list>
   </ion-content>
 </ion-menu>
-<ion-nav #content [root]="rootPage"></ion-nav>
+<ion-nav #nav [root]="rootPage"></ion-nav>

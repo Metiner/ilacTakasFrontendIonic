@@ -1,6 +1,6 @@
 import { NgModule, ErrorHandler } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import {IonicApp, IonicModule, IonicErrorHandler, NavController} from 'ionic-angular';
+import {IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { MyApp } from './app.component';
 
 import { TabsPage } from '../pages/tabs/tabs';
@@ -11,12 +11,27 @@ import { LoginPage } from "../pages/login/login";
 import { IonicStorageModule } from "@ionic/storage";
 import { IlacTakasLibrary } from "../services/IlacTakasLibrary";
 import { HttpModule} from "@angular/http";
+import { SignupPage } from "../pages/signup/signup";
+import {WelcomePage} from "../pages/welcome/welcome";
+import {HeaderComponent} from "../components/header/header";
+import {TekliflerPage} from "../pages/teklifler/teklifler";
+import {TeklifComponent} from "../components/teklif/teklif";
+import {ProgressbarComponent} from "../components/progressbar/progressbar";
+import {TeklifYaratPage} from "../pages/teklif-yarat/teklif-yarat";
 
 @NgModule({
   declarations: [
     MyApp,
     TabsPage,
-    LoginPage
+    LoginPage,
+    SignupPage,
+    WelcomePage,
+    TekliflerPage,
+    HeaderComponent,
+    TeklifComponent,
+    TeklifYaratPage,
+    ProgressbarComponent
+
   ],
   imports: [
     BrowserModule,
@@ -28,7 +43,11 @@ import { HttpModule} from "@angular/http";
   entryComponents: [
     MyApp,
     TabsPage,
-    LoginPage
+    LoginPage,
+    SignupPage,
+    TekliflerPage,
+    TeklifYaratPage,
+    WelcomePage
   ],
   providers: [
     StatusBar,

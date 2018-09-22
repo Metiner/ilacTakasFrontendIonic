@@ -1,24 +1,27 @@
 import { Injectable } from "@angular/core";
 import { NgForm } from "@angular/forms";
-import { Http } from "@angular/http";
+import {Http, RequestOptions, Headers} from "@angular/http";
 import { Storage } from '@ionic/storage'
-import  jwt  from 'jsonwebtoken'
-import {AlertController, ToastController} from "ionic-angular";
+import {AlertController, Events, ToastController} from "ionic-angular";
 import {Observable} from "rxjs/Observable";
 
 @Injectable()
 export class IlacTakasLibrary {
 
-  apiEndpoint = "https://ilactakasbackend.herokuapp.com"
+  /*apiEndpoint = "https://ilactakasbackend.herokuapp.com"*/
+  apiEndpoint = "http://localhost:3000"
+  isAuth= false
 
-  user: {
-    name: ""
+  eczane: {
+    ad: ""
   }
+  token = ""
 
   constructor( private http: Http,
                private storage: Storage,
                private alertCtrl: AlertController,
-               private toastCtrl: ToastController) {
+               private toastCtrl: ToastController,
+               private eventCtrl: Events) {
 
   }
 
@@ -31,28 +34,130 @@ export class IlacTakasLibrary {
 
     return new Observable( observer => {
 
-      this.http.post(this.apiEndpoint + '/user/login', eczane).subscribe( response => {
+      this.http.post(this.apiEndpoint + '/users/signin', eczane).subscribe( response => {
 
-        this.setSuccessAuthParams(response)
+        let token = response.json().token
+        let eczane = response.json().eczane
+
+        this.publishEvent('menuChangeAuth', true)
+        this.setSuccessAuthParams(eczane, token)
         observer.next(true)
         observer.complete()
 
-
-
       }, err => {
-        this.showToast("Başarısız giriş, lütfen bilgileri kontrol ediniz.", 3000, 'bottom' )
         observer.next(false)
         observer.complete()
       })
     })
+  }
 
+  logout(){
+    this.storage.clear()
+      .then( response => {
+        this.isAuth = false
+        this.publishEvent('menuChangeAuth', false)
+        let eczane = {
+          ad: ''
+        }
+        this.publishEvent('headerEczaneAdi', eczane)
+      })
+  }
+
+  signup(f: NgForm){
+
+    let eczane = {
+
+      user: {
+        email: f.value.email,
+        password: f.value.password,
+        password_confirmation: f.value.password
+      },
+      /*group_id: f.value.grup,*/
+
+
+      eczane: {
+        ad: f.value.username,
+        gln_no: f.value.gln,
+        grup_id: 1,
+        bakiye: 0,
+        actigi_teklif_sayisi: 0
+      }
+    }
+
+    return this.http.post(this.apiEndpoint + '/users/signup.json', eczane)
 
   }
 
-  setSuccessAuthParams(response: any){
+  create_teklif(teklif:any){
+    return this.http.post(this.apiEndpoint + '/teklifs.json', teklif)
+  }
 
-    this.storage.set('ilacTakasToken', 'Bearer ' + response.json().token)
-    this.user = jwt.decode(response.json().token).user
+  // Checks storage for auth, returns boolean
+  checkAuth() {
+    return new Promise((resolve, reject) => {
+      this.storage.get('ilacTakasToken')
+        .then(response => {
+          if (response.status !== null) {
+            let token = response
+            this.storage.get('ilacTakasEczane')
+              .then( eczane => {
+                if (eczane !== null) {
+                  this.isAuth = true
+                  this.setSuccessAuthParams(eczane, token)
+                  resolve(true)
+                } else {
+                  resolve(false)
+                }
+              })
+          }
+          else {
+            resolve(false)
+          }
+        })
+        .catch(err => {
+          resolve(false)
+        })
+    })
+  }
+
+  public getIlaclarAutocomplete( searchParam) {
+
+    if (searchParam.length > 3 && searchParam.length < 10) {
+      // Lazily load input items
+      return this.http.post(this.apiEndpoint + '/teklifs/get_ilac_auto_complete.json', {
+        searchParam: searchParam.toUpperCase()
+      })
+    }
+  }
+
+  public getEczaneler() {
+
+    return this.http.get(this.apiEndpoint + '/eczanes')
+  }
+
+  public getTeklifler(){
+
+    let opt = this.setHeader()
+
+    //return this.http.get(this.apiEndpoint + '/teklifs.json', opt)
+    return this.http.get(this.apiEndpoint + '/teklifs.json')
+
+  }
+
+  public getPharmacyGroups(){
+
+    return this.http.get(this.apiEndpoint + '/getGroups')
+
+  }
+
+  public setSuccessAuthParams(eczane: any, token: any){
+
+    this.token = token
+    this.eczane = eczane
+    this.storage.set('ilacTakasToken', token)
+    this.storage.set('ilacTakasEczane', this.eczane)
+
+    this.publishEvent('headerEczaneAdi', this.eczane)
 
   }
 
@@ -73,5 +178,25 @@ export class IlacTakasLibrary {
       position : position
     })
     toast.present();
+  }
+
+  public publishEvent( eventName, args){
+    this.eventCtrl.publish(eventName,args)
+  }
+
+  // to set request header for authentication
+  private setHeader():RequestOptions{
+
+    let opt:RequestOptions;
+    let myHeaders: Headers = new Headers;
+
+
+    myHeaders.set('Authorization','Bearer ' + this.token);
+
+    opt = new RequestOptions({
+      headers:myHeaders
+    });
+
+    return opt;
   }
 }
