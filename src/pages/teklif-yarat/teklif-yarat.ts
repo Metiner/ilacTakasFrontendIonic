@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
-import { IonicPage } from 'ionic-angular';
+import {IonicPage, NavController} from 'ionic-angular';
 import {NgForm} from "@angular/forms";
 import {IlacTakasLibrary} from "../../services/IlacTakasLibrary";
+import {TekliflerPage} from "../teklifler/teklifler";
 
 /**
  * Generated class for the TeklifYaratPage page.
@@ -38,15 +39,18 @@ export class TeklifYaratPage {
 
   eczaneler = []
 
-  constructor(private ilacTakasLibrary: IlacTakasLibrary) {
+  constructor(private ilacTakasLibrary: IlacTakasLibrary,
+              private navCtrl: NavController) {
+    console.log(this.navCtrl)
+
   }
 
 
   teklifYarat(f:NgForm){
-      if(this.eoy === true){
+      if(f.value.eoy === true){
         if(this.secilen_eczane === undefined){
           this.ilacTakasLibrary.showToast("Lütfen eczane seçiniz.", 3000, 'bottom')
-        }else if( this.minimumAlim > f.value.maxAlim){
+        }else if( parseFloat(f.value.minimumAlim) > parseFloat(f.value.maxAlim)){
           this.ilacTakasLibrary.showToast("Minumum alım, maksimumdan büyük olamaz.", 3000, 'bottom')
         }else if( f.value.baslangicTarihi > f.value.bitisTarihi){
           let bitis = new Date(f.value.bitisTarihi)
@@ -54,7 +58,7 @@ export class TeklifYaratPage {
           if( bitis < baslangic){
             this.ilacTakasLibrary.showToast('Talep başlangıç tarihi, bitisten büyük olamaz.', 3000, 'bottom')
           }
-        }else if(f.value.etiketFiyati < f.value.depoFiyati){
+        }else if(parseFloat(f.value.etiketFiyati) < parseFloat(f.value.depoFiyati)){
           this.ilacTakasLibrary.showToast('Etiket fiyati, depo fiyatindan küçük olamaz.', 3000, 'bottom')
         }
         else{
@@ -78,7 +82,8 @@ export class TeklifYaratPage {
               ozel_eczane_id: f.value.secilen_eczane,
               net_fiyat: this.netFiyat,
               yemek_ceki_elden_nakit: f.value.yemekCekiEldenNakit,
-              ekstra_urun: f.value.ekstraUrun
+              ekstra_urun: f.value.ekstraUrun,
+              eczane_id: this.ilacTakasLibrary.eczane.id
             }
           }
           this.create_teklif(teklif)
@@ -103,7 +108,8 @@ export class TeklifYaratPage {
             eczaneye_ozel: f.value.eoy,
             net_fiyat: this.netFiyat,
             yemek_ceki_elden_nakit: f.value.yemekCekiEldenNakit,
-            ekstra_urun: f.value.ekstraUrun
+            ekstra_urun: f.value.ekstraUrun,
+            eczane_id: this.ilacTakasLibrary.eczane.id
           }
         }
         this.create_teklif(teklif)
@@ -114,9 +120,11 @@ export class TeklifYaratPage {
 
 
     this.ilacTakasLibrary.create_teklif(teklif).subscribe( response => {
-      console.log(response)
+      if(response.status){
+        this.navCtrl.push(TekliflerPage)
+      }
     }, error2 => {
-
+        this.ilacTakasLibrary.showToast("Hata", 3000, 'bottom')
     })
   }
 
@@ -155,16 +163,14 @@ export class TeklifYaratPage {
       })
   }
 
-  calculateNetPrice(f){
-
-
+  calculateNetPrice(f:NgForm){
     let temp;
     let temp2;
     let temp3 = 0;
-    if(f.value.yemekCekiEldenNakit !== 0 && f.value.yemekCekiEldenNakit !== "") {
+    if(f.value.yemekCekiEldenNakit !== 0 && f.value.yemekCekiEldenNakit !== null) {
       temp3 += parseFloat(f.value.yemekCekiEldenNakit) / parseFloat(f.value.depoFiyati)
     }
-    if(f.value.ekstraUrun !== 0 && f.value.ekstraUrun !== ""){
+    if(f.value.ekstraUrun !== 0 && f.value.ekstraUrun !== null){
       let temp4 = parseFloat(f.value.ekstraUrun) * parseFloat(f.value.etiketFiyati)
       temp3 += temp4 / parseFloat(f.value.depoFiyati)
     }

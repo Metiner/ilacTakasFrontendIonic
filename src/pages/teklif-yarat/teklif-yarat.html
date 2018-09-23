@@ -71,13 +71,13 @@
         <ion-col col-12 col-md-6 class="mx-auto">
           <ion-item no-padding>
             <ion-label floating>Yemek Çeki/ Elden Nakit</ion-label>
-            <ion-input [ngModel] required name="yemekCekiEldenNakit" type="number"></ion-input>
+            <ion-input [ngModel] name="yemekCekiEldenNakit" type="number"></ion-input>
           </ion-item>
         </ion-col>
         <ion-col col-12 col-md-6 class="mx-auto">
           <ion-item no-padding>
             <ion-label floating>Ekstra Hediye Ürün</ion-label>
-            <ion-input [ngModel] required name="ekstraUrun" type="number"></ion-input>
+            <ion-input [ngModel] name="ekstraUrun" type="number"></ion-input>
           </ion-item>
         </ion-col>
       </ion-row>
@@ -85,13 +85,13 @@
         <ion-col col-12 col-md-6 class="mx-auto">
           <ion-item no-padding>
             <ion-label floating>Başlangıç</ion-label>
-            <ion-datetime [ngModel] name="baslangicTarihi" displayFormat="DD/MM/YYYY" cancelText="Vazgeç" doneText="Seç"  max="2030" ></ion-datetime>
+            <ion-datetime [ngModel] name="baslangicTarihi" required displayFormat="DD/MM/YYYY" cancelText="Vazgeç" doneText="Seç"  max="2030" ></ion-datetime>
           </ion-item>
         </ion-col>
         <ion-col col-12 col-md-6 class="mx-auto">
           <ion-item no-padding>
             <ion-label floating>Bitiş</ion-label>
-            <ion-datetime displayFormat="DD/MM/YYYY"  cancelText="Vazgeç" doneText="Seç" ngModel max="2030" name="bitisTarihi"></ion-datetime>
+            <ion-datetime displayFormat="DD/MM/YYYY" required cancelText="Vazgeç" doneText="Seç" ngModel max="2030" name="bitisTarihi"></ion-datetime>
           </ion-item>
         </ion-col>
       </ion-row>
@@ -99,7 +99,7 @@
         <ion-col col-12 col-md-6 class="mx-auto">
           <ion-item no-padding>
             <ion-label floating>Son kullanma tarihi</ion-label>
-            <ion-datetime displayFormat="DD/MM/YYYY" cancelText="Vazgeç" doneText="Seç" ngModel max="2030" name="sonKullanmaTarihi"></ion-datetime>
+            <ion-datetime displayFormat="DD/MM/YYYY" required cancelText="Vazgeç" doneText="Seç" ngModel max="2030" name="sonKullanmaTarihi"></ion-datetime>
           </ion-item>
         </ion-col>
         <ion-col col-12 col-md-6 class="mx-auto">

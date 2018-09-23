@@ -36,8 +36,10 @@ import {TeklifYaratPage} from "../pages/teklif-yarat/teklif-yarat";
   imports: [
     BrowserModule,
     HttpModule,
-    IonicModule.forRoot(MyApp),
-    IonicStorageModule.forRoot()
+    IonicStorageModule.forRoot(),
+    IonicModule.forRoot(MyApp, {
+      tabsHideOnSubPages:false
+    })
   ],
   bootstrap: [IonicApp],
   entryComponents: [

@@ -27,7 +27,7 @@ export class TekliflerPage {
       if(response){
         this.ilacTakasLibrary.getTeklifler()
           .subscribe( response => {
-            this.teklifler = response.json().bids
+            this.teklifler = response.json().teklifler
           }, error => {
             this.navCtrl.push(LoginPage)
           })

@@ -7,9 +7,9 @@ import {Events} from "ionic-angular";
 })
 export class HeaderComponent {
 
-  eczane = {
-    ad: ''
-  }
+  eczane={
+    ad:""
+  };
   constructor(private eventCtrl: Events){
     this.eventCtrl.subscribe('headerEczaneAdi', ( eczane ) => {
       this.eczane = eczane

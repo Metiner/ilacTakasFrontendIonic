@@ -12,9 +12,7 @@ export class IlacTakasLibrary {
   apiEndpoint = "http://localhost:3000"
   isAuth= false
 
-  eczane: {
-    ad: ""
-  }
+  eczane:any;
   token = ""
 
   constructor( private http: Http,
@@ -133,6 +131,10 @@ export class IlacTakasLibrary {
   public getEczaneler() {
 
     return this.http.get(this.apiEndpoint + '/eczanes')
+  }
+
+  public getEczaneBilgileri(eczane_id){
+    return this.http.get(this.apiEndpoint+/eczanes/ + eczane_id)
   }
 
   public getTeklifler(){

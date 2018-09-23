@@ -10,6 +10,8 @@ import {TeklifYaratPage} from "../teklif-yarat/teklif-yarat";
       
       <ion-tab   [root]="tekliflerPage" tabIcon="list-box" tabTitle= "Teklifler">
       </ion-tab>
+      <ion-tab   [root]="teklifYarat" tabIcon="add-circle" tabTitle= "Teklif Oluştur">
+      </ion-tab>
       
     </ion-tabs>
   `,
@@ -17,6 +19,7 @@ import {TeklifYaratPage} from "../teklif-yarat/teklif-yarat";
 export class TabsPage {
 
   tekliflerPage = TekliflerPage
+  teklifYarat = TeklifYaratPage
 
   constructor() {
   }

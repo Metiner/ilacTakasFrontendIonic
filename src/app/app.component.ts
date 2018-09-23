@@ -13,9 +13,9 @@ import {TeklifYaratPage} from "../pages/teklif-yarat/teklif-yarat";
 })
 export class MyApp {
 
-  rootPage: any = TabsPage;
-  @ViewChild('nav') nav: NavController
+  public rootPage: any = TabsPage;
   isAuth = false
+  @ViewChild('nav') nav: NavController;
 
   constructor(platform: Platform,
               statusBar: StatusBar,
@@ -28,15 +28,14 @@ export class MyApp {
       // Here you can do any higher level native things you might need.
       statusBar.styleDefault();
       splashScreen.hide();
-
       this.initializeApp()
-
 
     });
   }
 
   initializeApp() {
 
+    console.log(this.nav)
     this.ilacTakasLibrary.checkAuth()
       .then( response => {
         if(response){
@@ -53,14 +52,19 @@ export class MyApp {
   }
 
   openLoginPage() {
-    this.nav.push(LoginPage)
-    this.menuCtrl.close()
+    this.nav.push(LoginPage);
+    this.menuCtrl.close();
+  }
+
+  openTeklifYaratPage(){
+    this.nav.push(TeklifYaratPage);
+    this.menuCtrl.close();
   }
 
   logOut(){
-    this.ilacTakasLibrary.logout()
-    this.nav.push(LoginPage)
-    this.menuCtrl.close()
+    this.ilacTakasLibrary.logout();
+    this.nav.push(LoginPage);
+    this.menuCtrl.close();
   }
 
 }
