@@ -23,6 +23,9 @@ export class TekliflerPage {
               private navCtrl: NavController) {
 
 
+
+  }
+  ionViewWillEnter(){
     this.ilacTakasLibrary.checkAuth().then( response => {
       if(response){
         this.ilacTakasLibrary.getTeklifler()
@@ -35,7 +38,6 @@ export class TekliflerPage {
     })
 
   }
-
 
 
 }

@@ -1,5 +1,7 @@
 import {Component, Input} from '@angular/core';
 import {IlacTakasLibrary} from "../../services/IlacTakasLibrary";
+import {NavController} from "ionic-angular";
+import {TeklifDetayPage} from "../../pages/teklif-detay/teklif-detay";
 
 @Component({
   selector: 'teklif',
@@ -8,24 +10,23 @@ import {IlacTakasLibrary} from "../../services/IlacTakasLibrary";
 export class TeklifComponent {
 
 
-  @Input() teklif: any
-  teklifBakiyeYuzdesi = 0
-  karlilik = ""
-  eczane:any ={}
-  constructor(private ilacTakasLibrary: IlacTakasLibrary) {
+  @Input() teklif: any;
+  teklifBakiyeYuzdesi = 0;
+  karlilik = "";
+  constructor(private ilacTakasLibrary: IlacTakasLibrary,
+              private nav: NavController) {
   }
+
 
   ngOnInit(){
-    this.teklifBakiyeYuzdesi = this.teklif.alinmis_miktar * this.teklif.hedeflenen_alim / 100
-    this.karlilik = (this.teklif.net_fiyat / this.teklif.depo_fiyati * 100).toFixed()
-    this.getEczaneAdi(this.teklif.eczane_id)
+    this.teklifBakiyeYuzdesi = parseInt((this.teklif.alinmis_miktar * 100 / (this.teklif.alim_miktari + this.teklif.mal_fazlasi)).toFixed());
+    this.karlilik = (this.teklif.net_fiyat / this.teklif.depo_fiyati * 100).toFixed();
   }
 
-  getEczaneAdi(eczane_id){
-    this.ilacTakasLibrary.getEczaneBilgileri(eczane_id).subscribe( response => {
-      this.eczane = response.json()
-    },error =>{
+  goToDetay(teklif){
+    teklif.karlilik = this.karlilik
+    teklif.teklifBakiyeYuzdesi = this.teklifBakiyeYuzdesi
 
-    })
+    this.nav.push(TeklifDetayPage, teklif)
   }
 }

@@ -18,6 +18,8 @@ import {TekliflerPage} from "../pages/teklifler/teklifler";
 import {TeklifComponent} from "../components/teklif/teklif";
 import {ProgressbarComponent} from "../components/progressbar/progressbar";
 import {TeklifYaratPage} from "../pages/teklif-yarat/teklif-yarat";
+import {TeklifDetayPage} from "../pages/teklif-detay/teklif-detay";
+import {AlimlarimPage} from "../pages/alimlarim/alimlarim";
 
 @NgModule({
   declarations: [
@@ -30,6 +32,8 @@ import {TeklifYaratPage} from "../pages/teklif-yarat/teklif-yarat";
     HeaderComponent,
     TeklifComponent,
     TeklifYaratPage,
+    TeklifDetayPage,
+    AlimlarimPage,
     ProgressbarComponent
 
   ],
@@ -38,7 +42,8 @@ import {TeklifYaratPage} from "../pages/teklif-yarat/teklif-yarat";
     HttpModule,
     IonicStorageModule.forRoot(),
     IonicModule.forRoot(MyApp, {
-      tabsHideOnSubPages:false
+      tabsHideOnSubPages:false,
+      backButtonText: 'GERİ'
     })
   ],
   bootstrap: [IonicApp],
@@ -47,8 +52,10 @@ import {TeklifYaratPage} from "../pages/teklif-yarat/teklif-yarat";
     TabsPage,
     LoginPage,
     SignupPage,
+    TeklifDetayPage,
     TekliflerPage,
     TeklifYaratPage,
+    AlimlarimPage,
     WelcomePage
   ],
   providers: [

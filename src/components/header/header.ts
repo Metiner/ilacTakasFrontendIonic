@@ -1,4 +1,4 @@
-import {Component} from "@angular/core";
+import {Component, Input} from "@angular/core";
 import {Events} from "ionic-angular";
 
 @Component({
@@ -7,6 +7,7 @@ import {Events} from "ionic-angular";
 })
 export class HeaderComponent {
 
+  @Input() hideBackButton = false;
   eczane={
     ad:""
   };
@@ -16,5 +17,4 @@ export class HeaderComponent {
       this.eventCtrl.unsubscribe('headerEczaneAdi')
     })
   }
-
 }

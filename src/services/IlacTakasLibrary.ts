@@ -128,6 +128,10 @@ export class IlacTakasLibrary {
     }
   }
 
+  public alimYap(alim){
+    return this.http.post(this.apiEndpoint + '/alims.json', alim)
+  }
+
   public getEczaneler() {
 
     return this.http.get(this.apiEndpoint + '/eczanes')
@@ -139,9 +143,6 @@ export class IlacTakasLibrary {
 
   public getTeklifler(){
 
-    let opt = this.setHeader()
-
-    //return this.http.get(this.apiEndpoint + '/teklifs.json', opt)
     return this.http.get(this.apiEndpoint + '/teklifs.json')
 
   }
@@ -150,6 +151,10 @@ export class IlacTakasLibrary {
 
     return this.http.get(this.apiEndpoint + '/getGroups')
 
+  }
+
+  public get_aldiklarim(){
+    return this.http.get(this.apiEndpoint + '/eczanes/' + this.eczane.id + '/alims.json')
   }
 
   public setSuccessAuthParams(eczane: any, token: any){

@@ -1,0 +1,47 @@
+<ion-header>
+
+  <header></header>
+
+</ion-header>
+
+
+<ion-content padding>
+  <ion-row>
+    <ion-col col-12 col-md-6 col-lg-4 col-xl-3 *ngFor="let aldigim of aldiklarim">
+      <ion-card padding>
+        <ion-row>
+          <ion-col col-2>
+            <i class="fas fa-tablets"></i>
+          </ion-col>
+          <ion-col col-10>
+            <span style="font-weight: 600; font-size: 15px;color:#0000FF">{{aldigim.teklif.barcode.slice(0,25)}}</span>
+          </ion-col>
+          <ion-col col-2>
+            <img style="width: 30px;display: initial" src="../../assets/imgs/eczaneIcon.svg">
+          </ion-col>
+          <ion-col col-10>
+            <span style="font-weight: 600; font-size: 15px;color:#d40000">{{aldigim.eczane.ad}} ECZANESİ</span>
+          </ion-col>
+          <ion-col col-2>
+            <i class="fas fa-align-justify"></i>
+          </ion-col>
+          <ion-col col-10>
+            <span style="font-weight: 600; font-size: 15px">MİKTAR : <span style="font-weight: 900;font-size: 22px;color:#d40000"> {{aldigim.miktar}}</span></span>
+          </ion-col>
+          <ion-col col-2>
+            <i class="fas fa-tag"></i>
+          </ion-col>
+          <ion-col col-10>
+            <span style="font-weight: 600; font-size: 15px">NET FİYATİ : <span style="font-weight: 900;font-size: 22px;color:#d40000"> {{ aldigim.teklif.net_fiyat }}₺</span></span>
+          </ion-col>
+          <ion-col col-2>
+            <i class="fas fa-calendar-alt"></i>
+          </ion-col>
+          <ion-col col-10>
+            <span style="font-weight: 600; font-size: 15px">TARİH : <span style="font-weight: 900;font-size: 15px;color:#d40000"> {{ formatDate(aldigim.created_at)}}</span></span>
+          </ion-col>
+        </ion-row>
+      </ion-card>
+    </ion-col>
+  </ion-row>
+</ion-content>

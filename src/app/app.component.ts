@@ -35,7 +35,6 @@ export class MyApp {
 
   initializeApp() {
 
-    console.log(this.nav)
     this.ilacTakasLibrary.checkAuth()
       .then( response => {
         if(response){

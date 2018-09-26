@@ -1,0 +1,95 @@
+<ion-header>
+  <header></header>
+</ion-header>
+<ion-content>
+  <ion-row>
+    <ion-col col-12 col-md-6>
+      <ion-card padding>
+        <ion-row>
+          <ion-col col-2 col-md-1>
+            <i class="fas fa-tablets"></i>
+          </ion-col>
+          <ion-col col-10 col-md-5>
+            <span style="font-weight: 600; font-size: 15px;color:#0000FF">{{teklif.barcode}}</span>
+          </ion-col>
+          <ion-col col-2 col-md-1>
+            <img style="width: 30px;display: initial" src="../../assets/imgs/eczaneIcon.svg">
+          </ion-col>
+          <ion-col col-10 col-md-5>
+            <span style="font-weight: 600; font-size: 15px;color:#d40000">{{eczane?.ad}} ECZANESİ</span>
+          </ion-col>
+          <ion-col col-2 col-md-1>
+            <i class="fas fa-handshake"></i>
+          </ion-col>
+          <ion-col col-10 col-md-5>
+            <span style="font-weight: 600; font-size: 15px">ALIM/MF : <span style="font-weight: 900;font-size: 22px;color:#d40000"> {{ teklif.alim_miktari }}/{{teklif.mal_fazlasi}}</span></span>
+
+          </ion-col>
+          <ion-col col-2 col-md-1>
+            <i class="fas fa-tag"></i>
+          </ion-col>
+          <ion-col col-10 col-md-5>
+            <span style="font-weight: 600; font-size: 15px">NET FİYATİ : <span style="font-weight: 900;font-size: 22px;color:#d40000"> {{ teklif.net_fiyat }}₺</span></span>
+          </ion-col>
+          <ion-col col-2 col-md-1>
+            <i class="fas fa-tag"></i>
+          </ion-col>
+          <ion-col col-10 col-md-5>
+            <span style="font-weight: 600; font-size: 15px">DEPO/ETİKET FİYATİ : <span style="font-weight: 900">{{ teklif.depo_fiyati }}/{{teklif.etiket_fiyati}}₺</span></span>
+          </ion-col>
+          <ion-col col-2 col-md-1>
+            <i class="fas fa-bullseye"></i>
+          </ion-col>
+          <ion-col col-10 col-md-5>
+            <span style="font-weight: 600; font-size: 15px">HEDEFLENEN/KALAN : <span style="font-weight: 900">{{ teklif.hedeflenen_alim}}/{{teklif.alim_miktari+teklif.mal_fazlasi-teklif.alinmis_miktar}}</span></span>
+          </ion-col>
+          <ion-col col-2 col-md-1>
+            <i class="fas fa-calendar-alt"></i>
+          </ion-col>
+          <ion-col col-10 col-md-5>
+            <span style="font-weight: 600; font-size: 15px">BAŞLANGIÇ TAR : <span style="font-weight: 900">{{ teklif.baslangic_tarihi?.slice(0,10) }}</span></span>
+          </ion-col>
+          <ion-col col-2 col-md-1>
+            <i class="fas fa-calendar-alt"></i>
+          </ion-col>
+          <ion-col col-10 col-md-5>
+            <span style="font-weight: 600; font-size: 15px">BİTİŞ TAR : <span style="font-weight: 900">{{ teklif.bitis_tarihi?.slice(0,10)}}</span></span>
+          </ion-col>
+          <ion-col col-2 col-md-1>
+            <i class="fas fa-calendar-alt"></i>
+          </ion-col>
+          <ion-col col-10 col-md-5>
+            <span style="font-weight: 600; font-size: 15px">SON-KUL TAR : <span style="font-weight: 900">{{ teklif.son_kul_tarihi?.slice(0,10)}}</span></span>
+          </ion-col>
+          <ion-col col-2 col-md-1 *ngIf="teklif.eczaneye_ozel">
+            <i class="fas fa-info-circle"></i>
+          </ion-col>
+          <ion-col col-10 col-md-5 *ngIf="teklif.eczaneye_ozel">
+            <span style="font-weight: 600; font-size: 15px;color:#d40000">{{ozel_eczane.ad}} ECZANESİ'NE ÖZEL</span>
+          </ion-col>
+          <ion-col col-2 col-md-1>
+            <i class="fas fa-calendar-alt"></i>
+          </ion-col>
+          <ion-col col-10 col-md-5>
+            <span style="font-weight: 600; font-size: 15px">KÂR: <span style="font-weight: 900;font-size: 22px;color:#32DB64">%{{teklif?.karlilik}}</span></span>
+          </ion-col>
+          <ion-col col-12>
+            <progressbar [progress]="teklif.teklifBakiyeYuzdesi"></progressbar>
+          </ion-col>
+          <ion-col col-6 class="mx-auto" *ngIf="!is_it_my_firsat()">
+            <button ion-button
+                    block
+                    (click)="alimYap()"
+                    round
+                    large>ALIM YAP</button>
+          </ion-col>
+        </ion-row>
+      </ion-card>
+    </ion-col>
+    <ion-col>
+      <ion-card>
+
+      </ion-card>
+    </ion-col>
+  </ion-row>
+</ion-content>
