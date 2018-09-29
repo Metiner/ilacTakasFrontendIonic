@@ -20,6 +20,8 @@ import {ProgressbarComponent} from "../components/progressbar/progressbar";
 import {TeklifYaratPage} from "../pages/teklif-yarat/teklif-yarat";
 import {TeklifDetayPage} from "../pages/teklif-detay/teklif-detay";
 import {AlimlarimPage} from "../pages/alimlarim/alimlarim";
+import {KarekodIslemleriPage} from "../pages/karekod-islemleri/karekod-islemleri";
+import {GonderimlerimPage} from "../pages/gonderimlerim/gonderimlerim";
 
 @NgModule({
   declarations: [
@@ -34,6 +36,8 @@ import {AlimlarimPage} from "../pages/alimlarim/alimlarim";
     TeklifYaratPage,
     TeklifDetayPage,
     AlimlarimPage,
+    KarekodIslemleriPage,
+    GonderimlerimPage,
     ProgressbarComponent
 
   ],
@@ -56,6 +60,8 @@ import {AlimlarimPage} from "../pages/alimlarim/alimlarim";
     TekliflerPage,
     TeklifYaratPage,
     AlimlarimPage,
+    KarekodIslemleriPage,
+    GonderimlerimPage,
     WelcomePage
   ],
   providers: [

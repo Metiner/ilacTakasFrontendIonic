@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import {AlertController, IonicPage, NavController, NavParams} from 'ionic-angular';
 import {IlacTakasLibrary} from "../../services/IlacTakasLibrary";
+import {AlimlarimPage} from "../alimlarim/alimlarim";
 
 /**
  * Generated class for the TeklifDetayPage page.
@@ -70,7 +71,7 @@ export class TeklifDetayPage {
               this.ilacTakasLibrary.alimYap(alim).subscribe(response => {
                 if(response.json().status === "ok"){
                   this.ilacTakasLibrary.showToast("Alım yapıldı.",3000, "bottom");
-                  //TODO, burada aldıktan sonra alımlarım sayfasına yönlendireceksin.
+                  this.navCtrl.push(AlimlarimPage)
                 }else{
                   this.ilacTakasLibrary.showToast("Hata oluştu", 3000, "bottom");
                 }

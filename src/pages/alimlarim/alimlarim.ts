@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import {IlacTakasLibrary} from "../../services/IlacTakasLibrary";
+import {KarekodIslemleriPage} from "../karekod-islemleri/karekod-islemleri";
 
 /**
  * Generated class for the AlimlarimPage page.
@@ -17,7 +18,8 @@ import {IlacTakasLibrary} from "../../services/IlacTakasLibrary";
 export class AlimlarimPage {
 
   aldiklarim:any=[];
-  constructor(private ilacTakasLibrary: IlacTakasLibrary) {
+  constructor(private ilacTakasLibrary: IlacTakasLibrary,
+              private navCtrl: NavController) {
 
   }
 
@@ -29,10 +31,23 @@ export class AlimlarimPage {
       }
     })
   }
-
-  formatDate(unformatted_date){
-    let dateArray = unformatted_date.split("-");
-    return dateArray[2].slice(0,2) + "/" + dateArray[1] + "/" + dateArray[0] + " " + dateArray[2].slice(3,11);
+  openKarekodIslemleriPage(alim){
+    let data = {
+      from: 'alimlarim',
+      data: alim
+    }
+    this.navCtrl.push(KarekodIslemleriPage,data)
   }
 
+  teslim_al(aldigim){
+    aldigim.teslim_alindi = true;
+    this.ilacTakasLibrary.update_alim(aldigim).subscribe( response => {
+      if(response.json().status === "ok")
+      {
+        this.ilacTakasLibrary.showToast("TESLİM ALINDI", 3000, "bottom")
+      }
+    }, error => {
+      this.ilacTakasLibrary.showToast("HATA" + error , 3000, "bottom")
+    })
+  }
 }

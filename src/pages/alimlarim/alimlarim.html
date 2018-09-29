@@ -38,7 +38,39 @@
             <i class="fas fa-calendar-alt"></i>
           </ion-col>
           <ion-col col-10>
-            <span style="font-weight: 600; font-size: 15px">TARİH : <span style="font-weight: 900;font-size: 15px;color:#d40000"> {{ formatDate(aldigim.created_at)}}</span></span>
+            <span style="font-weight: 600; font-size: 15px">TARİH : <span style="font-weight: 900;font-size: 15px;color:#d40000"> {{ ilacTakasLibrary.formatDate(aldigim.created_at)}}</span></span>
+          </ion-col>
+          <ion-col col-2>
+            <i class="fas fa-qrcode"></i>
+          </ion-col>
+          <ion-col col-10>
+            <span style="font-weight: 700;font-size: 15px" [ngStyle]="{'color': aldigim.karekodlar?.length > 0 ? 'green' : '#d40000'}"> {{ aldigim.karekodlar?.length > 0 ? "KAREKODLAR GİRİLMİŞ" : "KAREKODLAR GİRİLMEMİŞ"}}</span>
+          </ion-col>
+          <ion-col col-2>
+            <i class="fas fa-arrow-alt-circle-right"></i>
+          </ion-col>
+          <ion-col col-10>
+            <span style="font-weight: 700;font-size: 15px;" [ngStyle]="{'color': aldigim.gonderildi ? 'green' : '#d40000'}"> {{ aldigim.gonderildi ? "GÖNDERİLMİŞ" : "GÖNDERİLMEMİŞ"}}</span>
+          </ion-col>
+          <ion-col col-2>
+            <i class="fas fa-arrow-alt-circle-left"></i>
+          </ion-col>
+          <ion-col col-10>
+            <span style="font-weight: 700;font-size: 15px" [ngStyle]="{'color': aldigim.teslim_alindi ? 'green' : '#d40000'}"> {{ aldigim.teslim_alindi ? "TESLİM ALINMIŞ" : "TESLİM ALINMAMIŞ"}}</span>
+          </ion-col>
+          <ion-col col-6 class="mx-auto">
+            <button ion-button
+                    block
+                    (click)="openKarekodIslemleriPage(aldigim)"
+                    round
+                    large>KAREKOD İŞLEMLERİ</button>
+          </ion-col>
+          <ion-col col-md-6 col-12 class="mx-auto">
+            <button ion-button
+                    block
+                    (click)="teslim_al(aldigim)"
+                    round
+                    large>TESLİM AL</button>
           </ion-col>
         </ion-row>
       </ion-card>

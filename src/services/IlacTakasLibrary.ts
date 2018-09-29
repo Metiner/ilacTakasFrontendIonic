@@ -137,6 +137,10 @@ export class IlacTakasLibrary {
     return this.http.get(this.apiEndpoint + '/eczanes')
   }
 
+  public getGonderimlerim(eczane_id){
+    return this.http.post(this.apiEndpoint + '/alims/get_gonderimlerim', { eczane_id: eczane_id})
+  }
+
   public getEczaneBilgileri(eczane_id){
     return this.http.get(this.apiEndpoint+/eczanes/ + eczane_id)
   }
@@ -147,10 +151,18 @@ export class IlacTakasLibrary {
 
   }
 
+  formatDate(unformatted_date){
+    let dateArray = unformatted_date.split("-");
+    return dateArray[2].slice(0,2) + "/" + dateArray[1] + "/" + dateArray[0] + " " + dateArray[2].slice(3,11);
+  }
+
   public getPharmacyGroups(){
 
     return this.http.get(this.apiEndpoint + '/getGroups')
 
+  }
+  public update_alim(aldigim){
+    return this.http.put(this.apiEndpoint +"/alims/"+aldigim.id, aldigim)
   }
 
   public get_aldiklarim(){

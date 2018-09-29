@@ -1,0 +1,81 @@
+<ion-header>
+
+  <ion-navbar>
+    <header></header>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <ion-row>
+    <ion-col col-12 col-md-6 col-lg-4 col-xl-3 *ngFor="let gonderecegim of gonderimlerim">
+      <ion-card padding>
+        <ion-row>
+          <ion-col col-2>
+            <i class="fas fa-tablets"></i>
+          </ion-col>
+          <ion-col col-10>
+            <span style="font-weight: 600; font-size: 15px;color:#0000FF">{{gonderecegim.teklif.barcode.slice(0,25)}}</span>
+          </ion-col>
+          <ion-col col-2>
+            <img style="width: 30px;display: initial" src="../../assets/imgs/eczaneIcon.svg">
+          </ion-col>
+          <ion-col col-10>
+            <span style="font-weight: 600; font-size: 15px;color:#d40000">{{gonderecegim.eczane.ad}} ECZANESİ</span>
+          </ion-col>
+          <ion-col col-2>
+            <i class="fas fa-align-justify"></i>
+          </ion-col>
+          <ion-col col-10>
+            <span style="font-weight: 600; font-size: 15px">MİKTAR : <span style="font-weight: 900;font-size: 22px;color:#d40000"> {{gonderecegim.miktar}}</span></span>
+          </ion-col>
+          <ion-col col-2>
+            <i class="fas fa-tag"></i>
+          </ion-col>
+          <ion-col col-10>
+            <span style="font-weight: 600; font-size: 15px">NET FİYATİ : <span style="font-weight: 900;font-size: 22px;color:#d40000"> {{ gonderecegim.teklif.net_fiyat }}₺</span></span>
+          </ion-col>
+          <ion-col col-2>
+            <i class="fas fa-calendar-alt"></i>
+          </ion-col>
+          <ion-col col-10>
+            <span style="font-weight: 600; font-size: 15px">TARİH : <span style="font-weight: 900;font-size: 15px;color:#d40000"> {{ ilacTakasLibrary.formatDate(gonderecegim.created_at)}}</span></span>
+          </ion-col>
+          <ion-col col-2>
+            <i class="fas fa-qrcode"></i>
+          </ion-col>
+          <ion-col col-10>
+            <span style="font-weight: 700;font-size: 15px" [ngStyle]="{'color': gonderecegim.karekodlar?.length > 0 ? 'green' : '#d40000'}"> {{ gonderecegim.karekodlar?.length > 0 ? "KAREKODLAR GİRİLMİŞ" : "KAREKODLAR GİRİLMEMİŞ"}}</span>
+          </ion-col>
+          <ion-col col-2>
+            <i class="fas fa-arrow-alt-circle-right"></i>
+          </ion-col>
+          <ion-col col-10>
+            <span style="font-weight: 700;font-size: 15px;" [ngStyle]="{'color': gonderecegim.gonderildi ? 'green' : '#d40000'}"> {{ gonderecegim.gonderildi ? "GÖNDERİLMİŞ" : "GÖNDERİLMEMİŞ"}}</span>
+          </ion-col>
+          <ion-col col-2>
+            <i class="fas fa-arrow-alt-circle-left"></i>
+          </ion-col>
+          <ion-col col-10>
+            <span style="font-weight: 700;font-size: 15px" [ngStyle]="{'color': gonderecegim.teslim_alindi ? 'green' : '#d40000'}"> {{ gonderecegim.teslim_alindi ? "TESLİM ALINMIŞ" : "TESLİM ALINMAMIŞ"}}</span>
+          </ion-col>
+          <ion-col col-12 col-md-6 class="mx-auto">
+            <button ion-button
+                    block
+                    (click)="openKarekodIslemleriPage(gonderecegim)"
+                    round
+                    large>KAREKOD İŞLEMLERİ</button>
+          </ion-col>
+          <ion-col col-md-6 col-12 class="mx-auto">
+            <button ion-button
+                    block
+                    (click)="gonder(gonderecegim)"
+                    round
+                    large>GÖNDER</button>
+          </ion-col>
+        </ion-row>
+      </ion-card>
+    </ion-col>
+  </ion-row>
+</ion-content>
