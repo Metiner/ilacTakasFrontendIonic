@@ -151,6 +151,13 @@ export class IlacTakasLibrary {
 
   }
 
+  public get_bakiyeler(){
+    return this.http.get(this.apiEndpoint + '/bakiyes')
+  }
+  public add_bakiye(eczane_id, tutar){
+    return this.http.post(this.apiEndpoint + '/eczanes/'+eczane_id+'/bakiyes.json', {eczane_id: eczane_id, tutar: tutar }).toPromise()
+  }
+
   formatDate(unformatted_date){
     let dateArray = unformatted_date.split("-");
     return dateArray[2].slice(0,2) + "/" + dateArray[1] + "/" + dateArray[0] + " " + dateArray[2].slice(3,11);

@@ -3,6 +3,7 @@ import {TekliflerPage} from "../teklifler/teklifler";
 import {TeklifYaratPage} from "../teklif-yarat/teklif-yarat";
 import {AlimlarimPage} from "../alimlarim/alimlarim";
 import {GonderimlerimPage} from "../gonderimlerim/gonderimlerim";
+import {BakiyelerPage} from "../bakiyeler/bakiyeler";
 @Component({
   selector: 'page-tabs',
   template: `
@@ -18,6 +19,8 @@ import {GonderimlerimPage} from "../gonderimlerim/gonderimlerim";
       </ion-tab>
       <ion-tab   [root]="gonderimlerimPage" tabIcon="share-alt" tabTitle= "Gönderimlerim">
       </ion-tab>
+      <ion-tab [root]="bakiyelerPage" tabIcon="list" tabTitle="Bakiyeler">
+      </ion-tab>
 
     </ion-tabs>
   `,
@@ -28,6 +31,7 @@ export class TabsPage {
   teklifYaratPage = TeklifYaratPage;
   alimlarimPage = AlimlarimPage;
   gonderimlerimPage = GonderimlerimPage;
+  bakiyelerPage = BakiyelerPage
 
   constructor() {
   }

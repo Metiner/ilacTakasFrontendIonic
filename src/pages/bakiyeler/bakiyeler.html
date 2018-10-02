@@ -1,0 +1,21 @@
+<ion-header>
+  <header></header>
+</ion-header>
+<ion-content padding>
+  <ion-row align-items-center>
+    <ion-col text-start>
+      <span style="font-weight: 700;font-size: 15px;color: #d40000">ECZANE</span>
+    </ion-col>
+    <ion-col text-end>
+      <span style="font-weight: 700;font-size: 15px;color: #d40000">BAKİYE</span>
+    </ion-col>
+  </ion-row>
+  <ion-row align-items-center *ngFor="let eczane of bakiyeler;let i = index" style="border-top: 1px solid lightgray">
+    <ion-col text-start>
+      <span style="font-weight: 500;font-size: 15px">{{i +1}} - </span><span style="font-weight: 700;font-size: 15px">{{eczane[0]}} Eczanesi</span>
+    </ion-col>
+    <ion-col text-end>
+      <span style="font-weight: 700;font-size: 15px" [ngStyle]="{ 'color': eczane[1] < 0 ? '#d40000' : '#32db64'} ">{{eczane[1]}} ₺</span>
+    </ion-col>
+  </ion-row>
+</ion-content>

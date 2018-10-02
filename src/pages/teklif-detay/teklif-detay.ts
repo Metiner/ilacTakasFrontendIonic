@@ -70,10 +70,22 @@ export class TeklifDetayPage {
 
               this.ilacTakasLibrary.alimYap(alim).subscribe(response => {
                 if(response.json().status === "ok"){
-                  this.ilacTakasLibrary.showToast("Alım yapıldı.",3000, "bottom");
-                  this.navCtrl.push(AlimlarimPage)
+                  Promise.all([this.ilacTakasLibrary.add_bakiye(this.eczane.id, parseFloat(this.teklif.net_fiyat) * parseFloat(data.miktar)),
+                    this.ilacTakasLibrary.add_bakiye(this.ilacTakasLibrary.eczane.id, -parseFloat(this.teklif.net_fiyat) * parseFloat(data.miktar))])
+                    .then( response => {
+                      response.forEach(el => {
+                        if(el.json().status !== 'ok'){
+                          this.ilacTakasLibrary.showToast("Bakiye eklenirken hata oluştu", 3000, "bottom");
+                          return
+                        }
+                        else{
+                          this.ilacTakasLibrary.showToast("Alım yapıldı.",3000, "bottom");
+                          this.navCtrl.push(AlimlarimPage)
+                        }
+                      })
+                    })
                 }else{
-                  this.ilacTakasLibrary.showToast("Hata oluştu", 3000, "bottom");
+                  this.ilacTakasLibrary.showToast("Alım yaparken hata oluştu", 3000, "bottom");
                 }
               },error => {
                 console.log(error)
