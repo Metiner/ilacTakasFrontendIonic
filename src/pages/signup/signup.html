@@ -44,16 +44,16 @@
           </ion-item>
         </ion-col>
       </ion-row>
-      <!--<ion-row>
+      <ion-row>
         <ion-col col-lg-6 class="mx-auto">
           <ion-item no-padding>
             <ion-label floating>Eczane Grubu</ion-label>
             <ion-select [ngModel] required name="grup" cancelText="Vazgeç" okText="Seç">
-              <ion-option *ngFor="let grup of gruplar" [value]="grup._id">{{ grup.name }}</ion-option>
+              <ion-option *ngFor="let grup of gruplar" [value]="grup.id">{{ grup.ad }}</ion-option>
             </ion-select>
           </ion-item>
         </ion-col>
-      </ion-row>-->
+      </ion-row>
       <ion-row>
         <ion-col col-lg-6 class="mx-auto">
           <ion-row>

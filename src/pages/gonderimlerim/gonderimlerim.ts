@@ -23,7 +23,7 @@ export class GonderimlerimPage {
   }
 
   ionViewWillEnter() {
-    this.ilacTakasLibrary.getGonderimlerim(this.ilacTakasLibrary.eczane.id).subscribe(response => {
+    this.ilacTakasLibrary.set_token_and_send_request('post','/alims/get_gonderimlerim', { eczane_id: this.ilacTakasLibrary.eczane.id}).subscribe(response => {
       if(response.json().status === "ok"){
         this.gonderimlerim = response.json().gonderimlerim;
       }

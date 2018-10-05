@@ -119,7 +119,7 @@ export class TeklifYaratPage {
   create_teklif(teklif:any){
 
 
-    this.ilacTakasLibrary.create_teklif(teklif).subscribe( response => {
+    this.ilacTakasLibrary.set_token_and_send_request('post', '/teklifs.json', teklif).subscribe( response => {
       if(response.status){
         this.navCtrl.push(TekliflerPage)
       }
@@ -136,7 +136,9 @@ export class TeklifYaratPage {
 
     if(searchParam.length > 3 && searchParam.length < 20 ){
 
-      this.ilacTakasLibrary.getIlaclarAutocomplete(searchParam)
+      this.ilacTakasLibrary.set_token_and_send_request('post', '/teklifs/get_ilac_auto_complete.json', {
+        searchParam: searchParam.toUpperCase()
+      })
         .subscribe(res => {
           res.json().ilaclar.map(element=>{
             this.ilaclar.push(element["ILAC ADI"])
@@ -154,7 +156,7 @@ export class TeklifYaratPage {
 
   getEczaneler(){
 
-    this.ilacTakasLibrary.getEczaneler()
+    this.ilacTakasLibrary.set_token_and_send_request('get', '/eczanes')
       .subscribe( response => {
         this.eczaneler = response.json().eczaneler
         this.eczaneler = this.eczaneler.filter( eczane => {

@@ -68,7 +68,8 @@ export class TeklifDetayPage {
 
               }}
 
-              this.ilacTakasLibrary.alimYap(alim).subscribe(response => {
+              //alim yap
+              this.ilacTakasLibrary.set_token_and_send_request('post', '/alims.json', alim).subscribe(response => {
                 if(response.json().status === "ok"){
                   Promise.all([this.ilacTakasLibrary.add_bakiye(this.eczane.id, parseFloat(this.teklif.net_fiyat) * parseFloat(data.miktar)),
                     this.ilacTakasLibrary.add_bakiye(this.ilacTakasLibrary.eczane.id, -parseFloat(this.teklif.net_fiyat) * parseFloat(data.miktar))])

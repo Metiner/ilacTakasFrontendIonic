@@ -86,10 +86,6 @@ export class IlacTakasLibrary {
 
   }
 
-  create_teklif(teklif:any){
-    return this.http.post(this.apiEndpoint + '/teklifs.json', teklif)
-  }
-
   // Checks storage for auth, returns boolean
   checkAuth() {
     return new Promise((resolve, reject) => {
@@ -116,25 +112,6 @@ export class IlacTakasLibrary {
           resolve(false)
         })
     })
-  }
-
-  public getIlaclarAutocomplete( searchParam) {
-
-    if (searchParam.length > 3 && searchParam.length < 10) {
-      // Lazily load input items
-      return this.http.post(this.apiEndpoint + '/teklifs/get_ilac_auto_complete.json', {
-        searchParam: searchParam.toUpperCase()
-      })
-    }
-  }
-
-  public alimYap(alim){
-    return this.http.post(this.apiEndpoint + '/alims.json', alim)
-  }
-
-  public getEczaneler() {
-
-    return this.http.get(this.apiEndpoint + '/eczanes')
   }
 
   public getGonderimlerim(eczane_id){
@@ -165,7 +142,7 @@ export class IlacTakasLibrary {
 
   public getPharmacyGroups(){
 
-    return this.http.get(this.apiEndpoint + '/getGroups')
+    return this.http.get(this.apiEndpoint + '/grups')
 
   }
   public update_alim(aldigim){
@@ -210,8 +187,8 @@ export class IlacTakasLibrary {
     this.eventCtrl.publish(eventName,args)
   }
 
-  // to set request header for authentication
-  private setHeader():RequestOptions{
+
+  public set_token_and_send_request(method, endpoint, params?){
 
     let opt:RequestOptions;
     let myHeaders: Headers = new Headers;
@@ -223,6 +200,11 @@ export class IlacTakasLibrary {
       headers:myHeaders
     });
 
-    return opt;
+    switch(method){
+      case 'post':
+        return this.http.post(this.apiEndpoint + endpoint, params, opt);
+      case 'get' :
+        return this.http.get(this.apiEndpoint, opt);
+    }
   }
 }
